@@ -1,0 +1,408 @@
+/* Global Variables & Reset */
+:root {
+    /* Lando Norris / F1 Palette */
+    --bg-color: #111112; /* Matte Black */
+    --card-bg: #1a1a1c; /* Slightly lighter for cards */
+    --text-color: #FFFFFF;
+    --accent-color: #D2FF00; /* Neon Lime */
+    --secondary-color: #ffffff;
+    --border-radius: 24px;
+    
+    /* Fonts */
+    --font-heading: 'Chakra Petch', sans-serif;
+    --font-body: 'Syne', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: transparent; /* Canvas provides background */
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+#globalCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: var(--bg-color);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* Utilities */
+.text-accent {
+    color: var(--accent-color) !important;
+}
+
+.bg-accent {
+    background-color: var(--accent-color) !important;
+    color: #000 !important;
+}
+
+/* Hover Accent Utility */
+.hover-accent {
+    transition: color 0.3s ease;
+}
+
+.hover-accent:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Bento Grid Card */
+.bento-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    height: 100%;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-card:hover {
+    transform: scale(1.03);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(17, 17, 18, 0.9) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    margin: 20px auto;
+    max-width: 900px;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #fff !important;
+}
+
+.nav-link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-color) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 80px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+/* Floating Animation */
+.floating-img {
+    animation: float 4s ease-in-out infinite;
+    max-width: 100%;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Buttons */
+.btn-f1 {
+    background-color: var(--accent-color);
+    color: #000;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border-radius: 50px; /* Pill shape or angular based on preference, Lando uses rounded */
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-f1:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(210, 255, 0, 0.3);
+}
+
+.btn-outline-f1 {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.2);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-f1:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* Marquee Skills */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    background: var(--accent-color);
+    color: #000;
+    padding: 1rem 0;
+    transform: rotate(-2deg);
+    width: 105%;
+    margin-left: -2.5%;
+    margin-bottom: 4rem;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+}
+
+.marquee-item {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2rem;
+    margin: 0 2rem;
+    text-transform: uppercase;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 3rem 0;
+    margin-top: 5rem;
+    text-align: center;
+}
+
+footer p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+}
+
+/* Social Icons */
+.social-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon-btn:hover {
+    background: var(--accent-color);
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(210, 255, 0, 0.2);
+}
+
+/* Stat Cards */
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+}
+
+/* Timeline Item */
+.timeline-item {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    border-color: var(--accent-color) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Utility Classes */
+.pointer-events-none {
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .bento-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Custom Cursor */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--accent-color);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    color: var(--text-color);
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(30px, 9999px, 10px, 0); }
+    5% { clip: rect(80px, 9999px, 90px, 0); }
+    10% { clip: rect(10px, 9999px, 40px, 0); }
+    15% { clip: rect(50px, 9999px, 20px, 0); }
+    20% { clip: rect(60px, 9999px, 70px, 0); }
+    25% { clip: rect(90px, 9999px, 10px, 0); }
+    30% { clip: rect(20px, 9999px, 50px, 0); }
+    35% { clip: rect(70px, 9999px, 30px, 0); }
+    40% { clip: rect(40px, 9999px, 80px, 0); }
+    45% { clip: rect(10px, 9999px, 60px, 0); }
+    50% { clip: rect(50px, 9999px, 90px, 0); }
+    55% { clip: rect(80px, 9999px, 20px, 0); }
+    60% { clip: rect(30px, 9999px, 40px, 0); }
+    65% { clip: rect(60px, 9999px, 10px, 0); }
+    70% { clip: rect(90px, 9999px, 50px, 0); }
+    75% { clip: rect(20px, 9999px, 70px, 0); }
+    80% { clip: rect(70px, 9999px, 30px, 0); }
+    85% { clip: rect(40px, 9999px, 80px, 0); }
+    90% { clip: rect(10px, 9999px, 60px, 0); }
+    95% { clip: rect(50px, 9999px, 90px, 0); }
+    100% { clip: rect(80px, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(60px, 9999px, 10px, 0); }
+    5% { clip: rect(20px, 9999px, 50px, 0); }
+    10% { clip: rect(90px, 9999px, 30px, 0); }
+    15% { clip: rect(40px, 9999px, 80px, 0); }
+    20% { clip: rect(10px, 9999px, 60px, 0); }
+    25% { clip: rect(50px, 9999px, 90px, 0); }
+    30% { clip: rect(80px, 9999px, 20px, 0); }
+    35% { clip: rect(30px, 9999px, 40px, 0); }
+    40% { clip: rect(60px, 9999px, 10px, 0); }
+    45% { clip: rect(90px, 9999px, 50px, 0); }
+    50% { clip: rect(20px, 9999px, 70px, 0); }
+    55% { clip: rect(70px, 9999px, 30px, 0); }
+    60% { clip: rect(40px, 9999px, 80px, 0); }
+    65% { clip: rect(10px, 9999px, 60px, 0); }
+    70% { clip: rect(50px, 9999px, 90px, 0); }
+    75% { clip: rect(80px, 9999px, 20px, 0); }
+    80% { clip: rect(30px, 9999px, 40px, 0); }
+    85% { clip: rect(60px, 9999px, 10px, 0); }
+    90% { clip: rect(90px, 9999px, 50px, 0); }
+    95% { clip: rect(20px, 9999px, 70px, 0); }
+    100% { clip: rect(70px, 9999px, 30px, 0); }
+}
