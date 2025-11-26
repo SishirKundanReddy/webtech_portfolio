@@ -282,3 +282,130 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 });
+
+
+
+
+
+/* eyes*/
+/* =========================
+   GLOBAL EYE STATE
+========================= */
+window.eyesClosed = true;   // start with eyes closed
+
+
+/* =========================
+   DOM READY
+========================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const closeBtn = document.getElementById('closeEyesBtn');
+  const eyeballs = document.querySelectorAll('.eyeball');
+
+  // If there are no eyes on this page, do nothing
+  if (eyeballs.length === 0) return;
+
+  // Start with eyes CLOSED (matches window.eyesClosed = true)
+  eyeballs.forEach(eye => {
+    eye.classList.add('closed');
+  });
+
+  // Pointer tracking – pupils follow mouse only when eyes are open
+  document.addEventListener('pointermove', (event) => {
+    if (window.eyesClosed) return; // don't move pupils when eyes closed
+
+    const { clientX, clientY } = event;
+
+    eyeballs.forEach(eyeball => {
+      const pupil = eyeball.querySelector('.pupil');
+      if (!pupil) return;
+
+      const rect = eyeball.getBoundingClientRect();
+      const eyeX = rect.left + rect.width / 2;
+      const eyeY = rect.top + rect.height / 2;
+
+      const dx = clientX - eyeX;
+      const dy = clientY - eyeY;
+      const angle = Math.atan2(dy, dx);
+
+      const max = rect.width * 0.25; // movement based on eye size
+      const x = Math.cos(angle) * max;
+      const y = Math.sin(angle) * max;
+
+      pupil.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    });
+  });
+
+  // If the button exists, hook up toggle behavior
+  if (closeBtn) {
+    
+    closeBtn.addEventListener('click', () => {
+      // TOGGLE GLOBAL STATE
+      window.eyesClosed = !window.eyesClosed;
+
+      // toggle eyelids
+      eyeballs.forEach(eye => {
+        eye.classList.toggle('closed', window.eyesClosed);
+      });
+
+      // toggle neon background
+      if (!window.eyesClosed) {
+        // eyes opened → neon background ON
+        document.body.classList.add('neonMode');
+        document.body.classList.add('colorMode');
+      } else {
+        // eyes closed → restore normal background
+        document.body.classList.remove('neonMode');
+        document.body.classList.remove('colorMode');
+      }
+    });
+  }
+});
+
+
+/* =========================
+   BLINK EYES
+========================= */
+function blinkEyes() {
+  if (window.eyesClosed) return; // never blink if closed
+
+  document.querySelectorAll('.eyeball').forEach(eye => {
+    eye.classList.add('closed');
+  });
+
+  setTimeout(() => {
+    if (!window.eyesClosed) { // only reopen if they should be open
+      document.querySelectorAll('.eyeball').forEach(eye => {
+        eye.classList.remove('closed');
+      });
+    }
+  }, 150);
+}
+
+
+function startBlinkLoop() {
+  const nextBlink = Math.random() * 5000 + 7000; 
+
+  setTimeout(() => {
+    if (!window.eyesClosed) {
+      blinkEyes();
+    }
+
+    startBlinkLoop(); 
+  }, nextBlink);
+}
+
+startBlinkLoop(); 
+
+function longBlink() {
+  if (window.eyesClosed) return;  
+
+  const eyeballs = document.querySelectorAll('.eyeball');
+
+  eyeballs.forEach(eye => eye.classList.add('closed'));
+
+  setTimeout(() => {
+    if (!window.eyesClosed) {
+      eyeballs.forEach(eye => eye.classList.remove('closed'));
+    }
+  }, 500); // long blink duration
+}

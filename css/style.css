@@ -698,3 +698,108 @@ footer p {
     display: none; /* Hide on mobile if it overlaps too much */
   }
 }
+
+
+
+
+
+
+
+/*eyes*/
+
+.eyeball {
+  --eye-size: 80px;   
+  --pupil-size: 30%;
+  width: var(--eye-size);
+  height: var(--eye-size);
+  background: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.pupil {
+  width: var(--pupil-size);
+  height: var(--pupil-size);
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* SIZES */
+.eyeball--big {
+  --eye-size: 60px;
+  --pupil-size: 35%;
+}
+
+.eyeball--mid {
+  --eye-size: 30px;
+  --pupil-size: 50%;
+}
+
+.eyeball--small {
+  --eye-size: 20px;
+  --pupil-size: 65%;
+}
+
+
+.eyes {
+  position: absolute;
+  display: flex;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.eyelid {
+    position: absolute;
+    top: -100%;         
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;   
+    border-radius: 50%;
+    transition: top 0.25s ease-in-out;
+    pointer-events: none;
+}
+
+/* When closed */
+.eyeball.closed .eyelid {
+    top: 0;             
+}
+
+/* Fade out pupil on close */
+.eyeball.closed .pupil {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Neon blue cyber background – only active when body.neonMode is added */
+body.neonMode {
+  background: radial-gradient(circle at center, #00aaff 0%, #001122 50%, #000000 100%);
+  background-size: 200% 200%;
+  animation: neonShift 4s linear infinite alternate;
+}
+
+/* Smooth animated movement of the gradient */
+@keyframes neonShift {
+  0%   { background-position: 50% 0%; }
+  100% { background-position: 50% 100%; }
+}
+
+/* (Optional but cool) – give eyes a glow in neon mode */
+body.neonMode .eyeball {
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
+}
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+    gap: 15px;               
+    justify-content: center;  
+    align-items: center;      
+    margin-top: 20px;         
+}
