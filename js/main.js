@@ -341,6 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', () => {
       // TOGGLE GLOBAL STATE
       window.eyesClosed = !window.eyesClosed;
+      if (window.eyesClosed) {
+    closeBtn.textContent = "peaka";
+      }  else 
+      {
+    closeBtn.textContent = "booh!";
+      }
 
       // toggle eyelids
       eyeballs.forEach(eye => {
@@ -360,13 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-
-/* =========================
-   BLINK EYES
-========================= */
+ 
 function blinkEyes() {
-  if (window.eyesClosed) return; // never blink if closed
+  if (window.eyesClosed) return; 
 
   document.querySelectorAll('.eyeball').forEach(eye => {
     eye.classList.add('closed');
